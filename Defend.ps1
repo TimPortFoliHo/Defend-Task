@@ -105,6 +105,8 @@ function CreateBlockRule {
     $ruleDirection = "Outbound"
     $ruleDescription = "Block outbound connections on TCP port 80"
 
+    # This portion of code is based on the Microsoft documentation for New-NetFirewallRule
+    # Documentation URL: https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2022-ps
     New-NetFirewallRule -DisplayName $ruleName -Action $ruleAction -Protocol $ruleProtocol -LocalPort $rulePort -Direction $ruleDirection -Description $ruleDescription
     Write-Output "Firewall rule created to block outbound connections to TCP port 80.
 Rule:BlockOutboundHTTP enabled"
@@ -152,7 +154,7 @@ elseif ($argument -eq "reset-DoH") {
     Write-Output "Calling resetDoH function..."
     resetDoH
 }
-elseif ($argument -eq "create-block-rule") {
+elseif ($argument -eq "create-block") {
     Write-Output "Creating block rule..."
     CreateBlockRule
 }
@@ -160,7 +162,7 @@ elseif ($argument -eq "test-blocking") {
     Write-Output "Testing blocking..."
     TestBlocking
 }
-elseif ($argument -eq "disable-block-rule") {
+elseif ($argument -eq "disable-block") {
     Write-Output "Disabling block rule..."
     DisableBlockRule
 }
@@ -169,5 +171,5 @@ else {
     Write-Output "Error: Unknown argument.
 Please select one of the following valid arugment:
 'test-DoH', 'enable-DoH', 'setupQuad-DoH', 'reset-DoH',
-'create-block-rule', 'test-blocking', 'disable-block-rule'"
+'create-block', 'test-blocking', 'disable-block'"
 }
